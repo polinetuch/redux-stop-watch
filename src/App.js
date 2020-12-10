@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import {useState, useRef} from 'react';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [timer, setTimer] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+  const countRef = useRef(null);
+
+  const handleStartTimer = () => {
+    setIsActive(true);
+    countRef.current = setInterval(() => {
+      setTimer((timer) => timer + 1)
+    }, 1000)
+  };
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Stopwatch with Redux</h1>
+      <h1>00:00:00</h1>
+      <button>+</button>
+      <button onClick={handleStartTimer}>Start</button>
+      <button>Lap</button>
+      <button>Reset</button>
+      <button>Stop</button> 
+      <button>-</button>
     </div>
   );
 }
